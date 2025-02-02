@@ -5,7 +5,7 @@ class Signup extends MY_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->library('form_validation');
+        $this->load->library(array('form_validation', 'session'));
     }
 
     public function user_layout()
@@ -23,8 +23,27 @@ class Signup extends MY_Controller
         {
             $this->load->view('signup/user_register_layout');
         }else{
-            echo "<h4>Successfully</h4>";
-            print_r($this->input->post());
+            // echo "<h4>Successfully</h4>";
+            // print_r($this->input->post());
+
+            $form_data = $this->input->post();
+
+            $insert_data = array(
+                'name' => $form_data['txtname'],
+                'email' => $form_data['txtemail'],
+                'mobile' => $form_data['txtmobile'],
+                'designation' => $form_data['txtdesignation']
+            );
+
+            // insert data
+            if($this->db->insert('tbl_users', $insert_data))
+            {
+                $this->session->set_flashdata('success', 'Data has been saved Successfully!');
+                redirect('signup/user');
+            }else{
+                $this->session->set_flashdata('error', 'Failed to save data.');
+                redirect('signup/user');
+            }
         }
     }
 }

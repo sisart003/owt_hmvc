@@ -10,11 +10,14 @@
     <div class="col-sm-12">
         <div class="col-sm-8">
         <h2>User Registration</h2>
-        <div class="form-errors">
-            <?php
-                // echo validation_errors();
-            ?>
-        </div>
+        <?php
+            if($this->session->flashdata('success')){
+                echo "<h3>".$this->session->flashdata('success')."<h3>";
+            }
+            if($this->session->flashdata('error')){
+                echo "<h3>".$this->session->flashdata('error')."<h3>";
+            }
+        ?>
         <form action="<?php echo site_url('signup/user-submit'); ?>" method='post' name='frm_add_user' id='frm_add_user'>
             <div class="form-group">
                 <label for="txtname">Name:</label>
