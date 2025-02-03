@@ -6,6 +6,7 @@ class Signup extends MY_Controller
     {
         parent::__construct();
         $this->load->library(array('form_validation', 'session', 'mylibrary'));
+        $this->load->helper('custom');
         $this->load->model('signup_model');
     }
 
@@ -81,4 +82,16 @@ class Signup extends MY_Controller
 
         echo $this->mylibrary->convert_words($string);
     }
+
+    public function run_my_helpers()
+    {
+        $string = 'chrishart estrada';
+        echo 'Length of the string: '. find_my_length($string);
+        echo "<br>";
+
+        $student_score = 100;
+        echo 'Level: ' . find_my_level($student_score);
+    }
+
+
 }
