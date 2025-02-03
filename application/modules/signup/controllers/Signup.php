@@ -5,7 +5,7 @@ class Signup extends MY_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->library(array('form_validation', 'session'));
+        $this->load->library(array('form_validation', 'session', 'mylibrary'));
         $this->load->model('signup_model');
     }
 
@@ -51,8 +51,34 @@ class Signup extends MY_Controller
     public function get_all_users()
     {
         $result = $this->signup_model->get_users();
-        echo '<pre>';
-        print_r($result);
-        echo '</pre>';
+        // echo '<pre>';
+        // print_r($result);
+        // echo '</pre>';
+        if(count($result) > 0){
+            foreach($result as $index => $user)
+            {
+                $name = $user->name;
+                $email = $user->email;
+                $mobile = $user->mobile;
+                $designation = $user->designation;
+                $name_length = $this->mylibrary->my_length($user->name);
+
+                echo "<h3>Name : {$name}";
+                echo "<h3>Email : {$email}";
+                echo "<h3>Mobile : {$mobile}";
+                echo "<h3>Designation : {$designation}";
+                echo "<h4>Total Length: {$name_length}</h4>";
+                echo "<hr>";
+            }
+        }else{
+            echo "no result found!";
+        }
+    }
+
+    public function string_fn()
+    {
+        $string = 'chrishart estrada';
+
+        echo $this->mylibrary->convert_words($string);
     }
 }
