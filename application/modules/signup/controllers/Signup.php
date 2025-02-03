@@ -6,6 +6,7 @@ class Signup extends MY_Controller
     {
         parent::__construct();
         $this->load->library(array('form_validation', 'session'));
+        $this->load->model('signup_model');
     }
 
     public function user_layout()
@@ -36,7 +37,7 @@ class Signup extends MY_Controller
             );
 
             // insert data
-            if($this->db->insert('tbl_users', $insert_data))
+            if($this->signup_model->create_user($insert_data))
             {
                 $this->session->set_flashdata('success', 'Data has been saved Successfully!');
                 redirect('signup/user');
@@ -49,11 +50,7 @@ class Signup extends MY_Controller
 
     public function get_all_users()
     {
-        $this->db->select('*');
-        $this->db->from('tbl_users');
-        $query = $this->db->get();
-
-        $result = $query->result();
+        $result = $this->signup_model->get_users();
         echo '<pre>';
         print_r($result);
         echo '</pre>';
