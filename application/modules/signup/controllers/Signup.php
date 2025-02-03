@@ -46,4 +46,16 @@ class Signup extends MY_Controller
             }
         }
     }
+
+    public function get_all_users()
+    {
+        $this->db->select('*');
+        $this->db->from('tbl_users');
+        $query = $this->db->get();
+
+        $result = $query->result();
+        echo '<pre>';
+        print_r($result);
+        echo '</pre>';
+    }
 }
