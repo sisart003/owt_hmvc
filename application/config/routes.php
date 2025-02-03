@@ -60,3 +60,5 @@ $route['show-message'] = 'message/simpleMessage';
 $route['view-template'] = 'template/my_view';
 $route['home'] = 'home/call_homepage';
 $route['about'] = 'about/call_about';
+
+$route['exports/export-table'] = 'exports/export_layout';
